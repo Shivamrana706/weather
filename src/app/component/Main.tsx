@@ -1,25 +1,93 @@
-import React, { useEffect } from 'react'
+"use client"
+import React, { useEffect, useState } from 'react'
 import { IoLocationOutline } from "react-icons/io5";
 import { BsCloudLightningFill } from "react-icons/bs";
-import { WEATHER_API_KEY } from "../../constant.js";
 import axios from 'axios';
 
 
+
 const Main: React.FC<any> = ({ weatherData }) => {
+    const rightArray: string[] = ['fadfasdf', 'fasdfsd', 'fasdd', 'fasd', 'fads']
+    const bottomDIvARRAy: number[] = [12, 132, 21, 12, 312, 32]
 
-
+    const [forcastData, setForcastDats] = useState([]);
 
     const today = new Date();
-    console.log(today);
-    console.log(weatherData, "weatherdata in main ");
 
 
-    const bottomDIvARRAy: number[] = [12, 132, 21, 12, 312, 32]
-    const rightArray: string[] = ['fadfasdf', 'fasdfsd', 'fasdd', 'fasd', 'fads']
+    // console.log(weatherData.list);
+    // console.log(weatherData, "weatherdata in main ");
+    useEffect(() => {
+        getForcastData();
+
+
+    }, [])
+    useEffect(() => {
+        filteredData(forcastData);
+    }, [forcastData])
+    const getForcastData = async () => {
+        const { data } = await axios(`https://api.openweathermap.org/data/2.5/forecast?q=brampton&appid=2c85aeefc744b275e96c40dd5304e91f`)
+
+        saveData(data.list)
+        // console.log("bigResponse.data.list", data);
+        // console.warn("forcastData", typeof forcastData);
+
+
+    }
+    function saveData(data: any) {
+        // console.log("saveData");
+        setForcastDats(data)
+
+
+        // console.log("expre", forcastData);
+    }
+    // const getTodayDate = () => {
+    //     const today = new Date();
+    //     const year = today.getFullYear();
+    //     const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    //     const day = String(today.getDate()).padStart(2, '0');
+
+    //     return `${year}-${month}-${day}`;
+    // };
+
+    const newData: any = [];
+    const [newSata, setNewSaat] = useState<any>([])
+    // function consoli() {
+    //     console.warn(newData, 'newdata');
+    //     console.warn(newData[0].dt_txt, 'newData[0].dt_txt');
+    // }
+    const filteredData = (forcastData: any) => {
+        let initalData: string = '';
+        for (let item of forcastData) {
+            // console.log(item, 'item');
+
+            if (item.dt_txt.split(' ')[0] !== initalData) {
+                newData.push(item);
+                setNewSaat([...newSata, item])
+                initalData = item.dt_txt.split(' ')[0];
+            } else {
+                console.log("else ")
+            }
+            console.log(newData, 'newData', newSata);
+
+        }
+
+    };
+
+
+
+    // const filterDate: any[] = forcastData.filter((item) => (item.dt_txt).split(" ")[0] == getTodayDate());
+    // console.log(filterDate, 'fileterData');
     return (
         <div className='p-3 flex h-5/6 text-white'>
             <div className='leftDiv w-3/4 h-full '>
-                <div className="leftUpperdiv flex rounded-lg bg-cloudy bg-cover bg-right h-3/4 px-5 py-5 text-white justify-between flex-col" >
+                <div className={
+                    weatherData.length !== 0 ? weatherData.weather[0].main == 'Clear'
+                        ? "leftUpperdiv flex rounded-lg bg-clear bg-cover bg-right h-3/4 px-5 py-5 text-white justify-between flex-col"
+                        : "leftUpperdiv flex rounded-lg bg-cloudy bg-cover bg-right h-3/4 px-5 py-5 text-white justify-between flex-col"
+                        : "leftUpperdiv flex rounded-lg bg-clear bg-cover bg-right h-3/4 px-5 py-5 text-white justify-between flex-col"
+                } >
+
                     <div className='flex items-center ml-1 font-medium text-xl'>
                         <IoLocationOutline />
                         <p>{weatherData.length !== 0 ? weatherData.name : "location"}</p>
@@ -39,7 +107,8 @@ const Main: React.FC<any> = ({ weatherData }) => {
                         </div>
                     </div>
                 </div>
-                <div className='leftBottomdiv mt-3 h-1/4 text-white rounded-lg bg-stone-600 p-4'>
+                {/* //bg-stone-600 */}
+                <div className='leftBottomdiv mt-3 h-1/4 text-white rounded-lg  bg-white bg-opacity-20 p-4'>
                     <p className='font-thin text-sm ml-5'>Today's statistics</p>
                     <ul className='flex justify-around mt-2'>
                         {
@@ -50,7 +119,7 @@ const Main: React.FC<any> = ({ weatherData }) => {
                     </ul>
                 </div>
             </div>
-            <div className="rightDiv text-white  w-3/12 h-full ml-5 p-5 rounded-lg bg-neutral-400 flex flex-col ">
+            <div className="rightDiv text-white bg-white bg-opacity-20  w-3/12 h-full ml-5 p-5 rounded-lg  flex flex-col ">
                 <div className='rightUpperdiv  border-b-2	'>
                     <div className='text-base flex justify-between'>
                         <p>{ }</p>
@@ -66,11 +135,14 @@ const Main: React.FC<any> = ({ weatherData }) => {
                 <div className='rightBottomdiv text-white'>
                     <p className='text-xl mb-1'>The next day Forcast</p>
                     <ul>
+
+                        {/* <p>{newData[0].dt_txt}</p> */}
                         {
-                            rightArray.map((item, key) =>
+                            newData.length == 0 ? "hello" : newData.map((item: any, key: any) =>
                                 <li className='flex justify-between border-b-2 rounded-md px-3 py-2' key={key}>
-                                    <p>{item}</p>
-                                    <p>{26}</p>
+                                    <p>{item.dt_txt.split(' ')[0]}</p>
+                                    <p>{((item.main.temp) - 275).toFixed(0)}</p>
+
                                 </li>
 
 
@@ -80,6 +152,9 @@ const Main: React.FC<any> = ({ weatherData }) => {
 
                 </div>
             </div>
+            {/* <LeftSide weatherData={weatherData} />
+            <RightSide weatherData={weatherData} /> */}
+
         </div >
     )
 }

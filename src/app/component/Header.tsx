@@ -10,9 +10,10 @@ interface YourComponentProps {
     search: string;
     setSearch: React.Dispatch<React.SetStateAction<string>>;
     weatherData: any
+    location: string
 }
 
-const Header: React.FC<YourComponentProps> = ({ getCityData, search, setSearch }) => {
+const Header: React.FC<YourComponentProps> = ({ getCityData, search, setSearch, weatherData, location }) => {
 
     // const API_Key: any = WEATHER_API_KEY;
 
@@ -36,7 +37,7 @@ const Header: React.FC<YourComponentProps> = ({ getCityData, search, setSearch }
             </div>
             <div className="flex items-center text-white justify-evenly ">
                 <IoLocationOutline />
-                <p className="mr-2 font-serif">Brampton</p>
+                <p className="mr-2 font-serif">{location !== null ? location : 'city'}</p>
                 <input
                     className="mr-1 rounded-full px-3 py-1 text-black font-mono "
                     type="text"
