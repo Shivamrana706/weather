@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-import { IoSunnyOutline, IoLocationOutline, IoSearchCircleOutline, IoSearchCircleSharp } from "react-icons/io5";
+import { IoSunnyOutline, IoSearchCircleSharp } from "react-icons/io5";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 import axios from 'axios';
 import { WEATHER_API_KEY } from "../../constant.js";
@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 
 
 import { addForcastWeatherData, addWeatherData } from "../redux/slice.js";
-import MobileDialog from "./mobileDialog";
+
 
 interface YourComponentProps {
     location: string
@@ -40,9 +40,7 @@ const Header: React.FC<YourComponentProps> = ({ location }) => {
             }
         }
     }
-    const onMobileButtonClick = () => {
 
-    }
     return (
         <div className="flex p-3 justify-between items-center text-white sm:w-full">
             <div className="flex text-center items-center">
@@ -65,7 +63,7 @@ const Header: React.FC<YourComponentProps> = ({ location }) => {
                     onChange={(e) => setSearch(e.target.value)}
                 />
 
-                <IoSearchCircleSharp onClick={onButtonClick} className="mr-2" color="white" size={40} />
+                <IoSearchCircleSharp onClick={onButtonClick} className="mr-2" color="yellow" size={40} />
             </div>
         </div>
     )

@@ -87,35 +87,18 @@ const Main: React.FC<any> = () => {
     };
 
 
-    // let hourlyData: any = []
-    // const filteredHourData = (data: any) => {
-    //     console.log('data', data[0].dt_txt)
-    //     data.map((item: any) => {
-    //         if (item.dt_txt.split(' ')[0] == getTodayDate()) {
-    //             hourlyData.push(item)
-    //             // console.log(getTodayDate(), "getTodaydata true");
 
-    //         } else {
-    //             // console.log(getTodayDate(), "getTodaydata");
-    //             console.log('item.dt_txt.split(\' \')[0]', item.dt_txt.split(' ')[0])
-    //         }
-    //     })
-    // }
     let hourlyDataSlice: any = []
     if (forcastWeatherData && forcastWeatherData.list && forcastWeatherData.list.length !== 0) {
         filteredData(forcastWeatherData.list)
         hourlyDataSlice = forcastWeatherData.list.slice(0, 6)
 
-        // filteredHourData(forcastWeatherData.list)
-        // console.log("insade if");
 
     } else {
         // console.log("insade else");
     }
 
 
-    // console.log('forcastWeatherData', forcastWeatherData.list)
-    // forcastWeatherData?.list.length == 0 ? filteredData(forcastWeatherData) : null
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const [time, setTime] = useState<any>('');
@@ -153,8 +136,8 @@ const Main: React.FC<any> = () => {
 
     // console.log('item.dt_txt.slice(\' \')[1]', hourlyDataSlice[0].dt_txt.slice(' ')[0])
     return (
-        <div className='p-3 flex h-5/6 text-white'>
-            <div className='leftDiv w-3/4 h-full '>
+        <div className='sm:p-3 sm:flex sm:h-5/6 sm:text-white sm:flex-row flex flex-col  '>
+            <div className='sm:leftDiv sm:w-3/4 sm:h-full h-[380px] '>
                 <div className=
                     {
                         weatherData.length !== 0 ? weatherData.weather[0].main == 'Clear'
@@ -195,7 +178,7 @@ const Main: React.FC<any> = () => {
                     </div>
                 </div>
                 {/* //bg-stone-600 */}
-                <div className='leftBottomdiv mt-3 h-1/4 text-white rounded-lg  bg-white bg-opacity-20 p-4'>
+                <div className='leftBottomdiv sm:mt-3 sm:h-1/4 text-white sm:rounded-lg rounded-lg  bg-white bg-opacity-20 p-4 mt-2 h-fit'>
                     <p className=' text-lg font-bold ml-5'>Today's statistics</p>
                     <ul className='flex justify-around mt-2'>
                         {
@@ -216,8 +199,8 @@ const Main: React.FC<any> = () => {
                     </ul>
                 </div>
             </div>
-            <div className="rightDiv text-white bg-white bg-opacity-20  w-3/12 h-full ml-5 p-5 rounded-lg  flex flex-col ">
-                <div className='rightUpperdiv  border-b-2	'>
+            <div className="rightDiv text-white bg-white bg-opacity-20  sm:w-3/12 sm:h-full sm:ml-5 sm:p-5 sm:mt-0 rounded-lg mt-20  flex flex-col w-full ">
+                <div className='rightUpperdiv  sm:border-b-2'>
                     <div className='text-base flex justify-between items-center '>
                         <div className='flex items-center text-center'>
                             <p className='text-lg font-bold '>{day},</p>
@@ -236,7 +219,7 @@ const Main: React.FC<any> = () => {
 
                 </div>
                 <br className='border border-white' />
-                <div className='rightBottomdiv text-white '>
+                <div className='rightBottomdiv sm:text-white mt-2 '>
                     <p className='text-xl mb-1'>The next day Forcast</p>
                     <ul className=''>
                         {
