@@ -137,13 +137,13 @@ const Main: React.FC<any> = () => {
     // console.log('item.dt_txt.slice(\' \')[1]', hourlyDataSlice[0].dt_txt.slice(' ')[0])
     return (
         <div className='sm:p-3 sm:flex sm:h-5/6 sm:text-white sm:flex-row flex flex-col  '>
-            <div className='sm:leftDiv sm:w-3/4 sm:h-full h-[380px] '>
+            <div className='sm:leftDiv sm:w-3/4 sm:h-full h-fit '>
                 <div className=
                     {
                         weatherData.length !== 0 ? weatherData.weather[0].main == 'Clear'
-                            ? "leftUpperdiv flex rounded-lg bg-clear bg-cover bg-right h-3/4 px-5 py-5 text-white justify-between flex-col"
-                            : "leftUpperdiv flex rounded-lg bg-cloudy bg-cover bg-right h-3/4 px-5 py-5 text-white justify-between flex-col"
-                            : "leftUpperdiv flex rounded-lg bg-clear bg-cover bg-right h-3/4 px-5 py-5 text-white justify-between flex-col"
+                            ? "leftUpperdiv flex rounded-lg bg-clear bg-cover bg-right sm:h-3/4 h-[306px] px-5 py-5 text-white justify-between flex-col"
+                            : "leftUpperdiv flex rounded-lg bg-cloudy bg-cover bg-right sm:h-3/4 h-[306px] px-5 py-5 text-white justify-between flex-col"
+                            : "leftUpperdiv flex rounded-lg bg-clear bg-cover bg-right sm:h-3/4 h-[306px] px-5 py-5 text-white justify-between flex-col"
                     }
                 >
 
@@ -178,7 +178,7 @@ const Main: React.FC<any> = () => {
                     </div>
                 </div>
                 {/* //bg-stone-600 */}
-                <div className='leftBottomdiv sm:mt-3 sm:h-1/4 text-white sm:rounded-lg rounded-lg  bg-white bg-opacity-20 p-4 mt-2 h-fit'>
+                <div className='leftBottomdiv sm:mt-3 sm:h-1/4 text-white sm:rounded-lg rounded-lg  bg-white bg-opacity-20 p-4 mt-3 h-fit'>
                     <p className=' text-lg font-bold ml-5'>Today's statistics</p>
                     <ul className='flex justify-around mt-2'>
                         {
@@ -199,7 +199,7 @@ const Main: React.FC<any> = () => {
                     </ul>
                 </div>
             </div>
-            <div className="rightDiv text-white bg-white bg-opacity-20  sm:w-3/12 sm:h-full sm:ml-5 sm:p-5 sm:mt-0 rounded-lg mt-20  flex flex-col w-full ">
+            <div className="rightDiv text-white bg-white bg-opacity-20  sm:w-3/12 sm:h-full sm:ml-5 p-5 sm:mt-0 rounded-lg mt-3  flex flex-col w-full ">
                 <div className='rightUpperdiv  sm:border-b-2'>
                     <div className='text-base flex justify-between items-center '>
                         <div className='flex items-center text-center'>
