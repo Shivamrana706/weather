@@ -147,9 +147,9 @@ const Main: React.FC<any> = () => {
     // console.log(newDate, "newdata");
     // console.log('newdateDatra', newdateData)
     // console.log(weatherData, "weather");
-    console.log('forcastWeatherData', forcastWeatherData.list)
+    // console.log('forcastWeatherData', forcastWeatherData.list)
     // console.log('hopurly data', hourlyData)
-    console.log('hourlyDataSlice', hourlyDataSlice)
+    // console.log('hourlyDataSlice', hourlyDataSlice)
 
     // console.log('item.dt_txt.slice(\' \')[1]', hourlyDataSlice[0].dt_txt.slice(' ')[0])
     return (

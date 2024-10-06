@@ -52,7 +52,7 @@ export default function Home() {
 
   return (
     <div className=
-      {weatherData.length !== 0 ? weatherData.weather[0].main !== 'Clear' ? "bg-neutral-500 h-screen" : "bg-sky-900 h-screen" : "bg-sky-900 h-screen"}
+      {weatherData.length !== 0 ? weatherData.weather[0].main !== 'Clear' ? "bg-neutral-500 h-screen sm:h-screen " : "bg-sky-900 h-screen" : "bg-sky-900 h-screen"}
     >
       <Header location={location} />
       <Main />
