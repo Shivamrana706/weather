@@ -1,21 +1,23 @@
 "use client"
-import Image from "next/image";
 import Header from "./component/Header";
 import Main from './component/Main'
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { WEATHER_API_KEY } from "../constant.js";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addWeatherData, addForcastWeatherData } from "./redux/slice";
 
 export default function Home() {
   const [search, setSearch] = useState<any>('');
-
-
   const [location, setLocation] = useState<string>('');
 
-  const [weatherData, setWeatherData] = useState<any>([])
+  const dispatch = useDispatch();
+  // 
   useEffect(() => {
+
     getLocation();
   }, [])
+
   const getLocation = async () => {
     navigator.geolocation.getCurrentPosition((position) => {
       getFirstData(position.coords.longitude, position.coords.latitude);
@@ -23,34 +25,36 @@ export default function Home() {
     })
   }
   const getFirstData = async (lon: any, lat: any) => {
-    const initialData = await axios(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}`)
-    setWeatherData(initialData.data)
-    setLocation(initialData.data.name)
-    // console.log(weatherData, "weather data in useeffact ");
-
-  }
-  const getCityData = async () => {
     try {
+      const initialWeatherData: any = await axios(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}`)
+      const initialForcastWeatherData: any = await axios(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=3&appid=${WEATHER_API_KEY}`)
+      dispatch(addWeatherData(initialWeatherData.data))
+      dispatch(addForcastWeatherData(initialForcastWeatherData.data))
+      setLocation(initialWeatherData.data.name)
+    } catch (error: any) {
 
-      const response = await axios(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=${WEATHER_API_KEY}`)
-      const { data } = response
-      setWeatherData(data)
-      // console.log("search", search);
-      console.log("weather", weatherData);
+      if (error.response) {
 
+        console.log('Error data:', error.response.data);
+        console.log('Error status:', error.response.status);
+      } else if (error.request) {
 
+        console.error('No response received:', error.request);
+      } else {
 
-
-    } catch (error) {
-
+        console.error('Error', error.message);
+      }
     }
+
   }
+  const weatherData: any = useSelector<any>((state: any) => state.weatherData);
 
   return (
-    //{weatherData.weather[0].main !== 'clear' ? "bg-neutral-500 h-screen" : "bg-sky-400 h-screen"}
-    <div className={weatherData.length !== 0 ? weatherData.weather[0].main !== 'Clear' ? "bg-neutral-500 h-screen" : "bg-sky-900 h-screen" : "bg-sky-900 h-screen"}>
-      <Header getCityData={getCityData} search={search} setSearch={setSearch} weatherData={weatherData} location={location} />
-      <Main weatherData={weatherData} />
+    <div className=
+      {weatherData.length !== 0 ? weatherData.weather[0].main !== 'Clear' ? "bg-neutral-500 h-screen" : "bg-sky-900 h-screen" : "bg-sky-900 h-screen"}
+    >
+      <Header location={location} />
+      <Main />
     </div >
   );
 }
