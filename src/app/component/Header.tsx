@@ -6,6 +6,7 @@ import { FaLocationCrosshairs } from "react-icons/fa6";
 import axios from 'axios';
 import { WEATHER_API_KEY } from "../../constant.js";
 import { useDispatch } from 'react-redux';
+require('dotenv').config();
 import { addForcastWeatherData, addWeatherData } from "../redux/slice.js";
 
 interface YourComponentProps {
@@ -14,6 +15,7 @@ interface YourComponentProps {
 
 const Header: React.FC<YourComponentProps> = ({ location }) => {
     const dispatch = useDispatch();
+    const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
 
     const [search, setSearch] = useState<any>('');
 

@@ -2,6 +2,7 @@
 import Header from "./component/Header";
 import Main from './component/Main'
 import axios, { AxiosResponse } from 'axios';
+require('dotenv').config();
 import { WEATHER_API_KEY } from "../constant.js";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +11,7 @@ import { addWeatherData, addForcastWeatherData } from "./redux/slice";
 export default function Home() {
   const [search, setSearch] = useState<any>('');
   const [location, setLocation] = useState<string>('');
-
+  const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
   const dispatch = useDispatch();
   // 
   useEffect(() => {
